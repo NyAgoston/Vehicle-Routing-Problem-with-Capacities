@@ -1,38 +1,54 @@
-from math import sqrt
-def manhattan(a, b):
-    return sum(abs(val1-val2) for val1, val2 in zip(a,b))
+import random
 
-def solveVRP(cities,start,routes):    
+def manhattan(c1, c2):
+    return ((c2[0] - c1[0])**2 + (c1[1] - c2[1])**2)**0.5
+
+def transform_cities(cities):
+    distances = {}
+    for i in range(len(cities)):
+        for j in range(len(cities)):
+            distances[(i, j)] = manhattan(cities[i], cities[j])
+    return distances
+
+def object_function(distances, s):#gives back a distance
     dist = 0
-    if start == len(cities):
-       return
-    for i in range(int(routes)):
-        print(start + i,"City:",cities[start + i])
-        
-        
-    start += int(routes)
-    solveVRP(cities,start,routes)
+    prev = s[0]
+    for i in s:
+        dist += distances[(prev, i)]
+        prev = i
+    dist += distances[(s[-1], s[0])]
+    return dist
+
+def local_search(s_bad, object_f, iterations):#gives back an order
+    s_best = list(s_bad)
+    f_best = object_f(s_bad)
+    for _ in range(iterations):
+        s_current = list(s_best)
+        a = random.randint(0, len(s_bad) - 1)
+        b = random.randint(0, len(s_bad) - 1)
+        s_current[a], s_current[b] = s_current[b], s_current[a]
+        f_current = object_f(s_current)
+        if f_current < f_best:
+            f_best = f_current
+            s_best = s_current
+    return s_best
+
 def main():
-    cities = [(456, 320), # location 0 - the depot
-    (228, 0), # location 1
-    (912, 0), # location 2
-    (0, 80), # location 3
-    (114, 80), # location 4
-    (570, 160), # location 5
-    (798, 160), # location 6
-    (342, 240), # location 7
-    (684, 240), # location 8
-    (570, 400), # location 9
-    (912, 400), # location 10
-    (114, 480), # location 11
-    (228, 480), # location 12
-    (342, 560), # location 13
-    (684, 560), # location 14
-    (0, 640), # location 15
-    (798, 640)] # location 16
+
+    cities = ((1, 1), (4, 2), (5, 2), (6, 4), (4, 4), (3, 6), (1, 5), (2, 3))
+
+    distances = transform_cities(cities)
+
+    s_bad = [0, 4, 2, 6, 5, 3, 7, 1]
+    #print(object_function(distances, s_bad))
+
+    s_opt = [0, 1, 2, 3, 4, 5, 6, 7]
+    #print(object_function(distances, s_opt))
     
-    start = 1
-    routes = (len(cities) - 1) / 4
-    
-    solveVRP(cities,start,routes)  
+    object_f = lambda sched: object_function(distances, sched)#lambda distances
+
+    s_improved = local_search(s_bad, object_f, 10000)#improved order
+
+    print(object_function(distances, s_improved))#distances and best order    
+
 main()
