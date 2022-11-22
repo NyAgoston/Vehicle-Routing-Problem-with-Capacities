@@ -32,30 +32,41 @@ def object_function(dict, s,vehicles):
             dist += dict[(prev, order[j][k])]
             prev = order[j][k]
     return dist
-def calculateDemand(s,demands,capacities,vehicles):
+def calculateDemand(s,a,b,demands,capacities,vehicles):
     order = makeArray(s,vehicles)
-    demand = 0
+    
     cols = ((len(s)) / vehicles) + 2
     for i in range(vehicles):
-        demand = 0
-        for j in range(int(cols)):
-            demand += demands[order[i][j]]
-        if demand > capacities:
-            return False
+        if a in order[i] or b in order[i]:
+            demand = 0
+            for j in range(int(cols)):
+                demand += demands[order[i][j]]
+            if demand > capacities:
+                return False
+
     return True
-def local_search(s, object_f, iterations,calculate_d):
+def neighborhood_search(s, object_f, iterations, neighbors,calculate_d):
     s_best = list(s)
     f_best = object_f(s)
+    s_base = list(s_best)
+    f_base = f_best
     for _ in range(iterations):
-        s_current = list(s_best)
-        a = random.randint(0, len(s) - 1)
-        b = random.randint(0, len(s) - 1)
-        s_current[a], s_current[b] = s_current[b], s_current[a]
-        f_current = object_f(s_current)
-        #calculate_d(s_current) and
-        if f_current < f_best:
-            f_best = f_current
-            s_best = s_current
+        s_best_neighbor = list(s_base)
+        f_best_neighbor = f_base
+        for _ in range(neighbors):
+            s_neighbor = list(s_base)
+            a = random.randint(0, len(s) - 1)
+            b = random.randint(0, len(s) - 1)
+            s_neighbor[a], s_neighbor[b] = s_neighbor[b], s_neighbor[a]
+            f_neighbor = object_f(s_neighbor)
+            if calculate_d(s_neighbor,a,b) and f_neighbor < f_best_neighbor:
+                f_best_neighbor = f_neighbor
+                s_best_neighbor = s_neighbor
+        s_base = s_best_neighbor
+        f_base = f_best_neighbor
+        if f_base < f_best:
+            f_best = f_base
+            s_best = s_base
     return s_best
 def closest_Order(order,tsp_dict,vehicles):
     prev = 0
@@ -120,9 +131,9 @@ def initData(vehicles,cities_num):
         for i in range(cities_num):
             num = random.randint(1,9)
             demands[i + 1] = num
-        if sum(demands) % 4 == 0:
+        if sum(demands) % vehicles == 0:
             done = False
-    capaciti = sum(demands) / 4
+    capaciti = sum(demands) / vehicles
     for i in range(cities_num + 1):
         x = random.randint(0,1000)
         y = random.randint(0,1000)
@@ -135,18 +146,21 @@ def main():
 
     object_f = lambda sched: object_function(vrp_dict, sched,vehicles)
 
-    calculate_d = lambda sched: calculateDemand(sched,demands,vehicle_capacities,vehicles)
+    calculate_d = lambda sched,a,b: calculateDemand(sched,b,a,demands,vehicle_capacities,vehicles)
 
-    i_order = [0] * (len(cities) -1)
+    order = [0] * (len(cities) -1)
 
-    #i_order = closest_Order(order,vrp_dict,vehicles)
+    i_order = closest_Order(order,vrp_dict,vehicles)
     
-    for i in range(16):
-        i_order[i] = i + 1
+    # for i in range(16):
+    #     i_order[i] = i + 1
+    print(demands)
+    print(sum(demands))
+    print(sum(demands) / 4)
     
     print(i_order)
 
-    il_order = local_search(i_order,object_f,10000,calculate_d)
+    il_order = neighborhood_search(i_order,object_f,100,100,calculate_d)
 
     printRoutes(il_order,vehicles,object_f,demands,vrp_dict,cities)
 
