@@ -13,29 +13,44 @@ def object_function(dict, s):
     for i in s:
         dist += dict[(prev, i)]
         prev = i
-    dist += dict[(s[-1], s[0])]
+    
     return dist
-def local_search(order1,order2, object_f, iterations):
-    s_best = order1
-    s_order2 = order2
-    f_best = object_f(order1)
+def local_search(s, object_f, iterations):
+    s_best = list(s)
+    f_best = object_f(s)
     for _ in range(iterations):
         s_current = list(s_best)
-        
-        a = random.randint(1, len(order1) - 2)
-        b = random.randint(1, len(order1) - 2)
-        s_current[a], s_current[b] = s_order2[b], s_order2[a]
-        print(s_current,s_best)
+        a = random.randint(1, len(s) - 2)
+        b = random.randint(1, len(s) - 2)
+        s_current[a], s_current[b] = s_current[b], s_current[a]
         f_current = object_f(s_current)
         if f_current < f_best:
             f_best = f_current
             s_best = s_current
     return s_best
-def test(t1,t2):
-    t1[1] = 100
-    t2[1] = 100
-    return [t1,t2]
+
+def isIn(num,order):
+    for i in range(len(order)):
+        if num in order[i]:
+            return True
+    return False
+def closest_Order(order,tsp_dict):
+    for i in range(len(order)):
+        prev = order[0][0]
+        for j in range(len(order[0]) - 2):   
+            min = 10000
+            index = 0
+            for k in range(len(order) * len(order[0]) - len(order) * 2):                
+                if tsp_dict[(prev,k + 1)] < min and isIn(k + 1, order) == False:
+                    min = tsp_dict[(prev,k + 1)]
+                    index = k + 1
+            prev = index
+            order[i][j + 1] = prev
+    return order         
 def main():
+    demands = [0, 1, 1, 2, 4, 2, 4, 8, 8, 1, 2, 1, 2, 4, 4, 8, 8]
+    vehicle_capacities = [15, 15, 15, 15]
+    
     tsp = [(456, 320), # location 0 - the depot
             (228, 0), # location 1
             (912, 0), # location 2
@@ -66,28 +81,20 @@ def main():
     rows, cols = (4, 6)
     order = [[0 for i in range(cols)] for j in range(rows)]
     
-    
-    num = 1
-    for i in range(rows):
-        for j in range(cols - 2):
-            order[i][j + 1] = num
-            num += 1  
-    print(order)
-    demands = [0, 1, 1, 2, 4, 2, 4, 8, 8, 1, 2, 1, 2, 4, 4, 8, 8]
-
-    vehicle_capacities = [15, 15, 15, 15]
-
-    
-
-    print()
-    for i in range(rows):        
-        for k in range(rows):
-            order[i] = local_search(order[i],order[k],object_f,1)
-
-    
-              
     print(order)
     
+    i_order = closest_Order(order,tsp_dict)
+                
+    print(i_order)
+    
+    # for i in range(len(i_order)):
+    #     i_order[i] = local_search(i_order[i],object_f,10000)
+        
+    # print(i_order)
+    km = 0
+    
+    for i in range (len(i_order)):
+        km += object_f(i_order[i])
     
     
     
