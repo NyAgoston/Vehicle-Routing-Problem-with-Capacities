@@ -54,9 +54,7 @@ def local_search(s, object_f, iterations,demands,capacities,vehicles):
         f_current = object_f(s_current)
         t = iterations / 1 + 0.8 * _
         diff = f_best - f_current
-        
-        Pt = (-diff / t)    
-        
+        Pt = (-diff / t)
         
         if calculateDemand(s_current,demands,capacities,vehicles) and f_current < f_best:
             f_best = f_current

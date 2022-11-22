@@ -53,12 +53,16 @@ def neighborhood_search(s, object_f, iterations, neighbors,calculate_d):
     for _ in range(iterations):
         s_best_neighbor = list(s_base)
         f_best_neighbor = f_base
-        for _ in range(neighbors):
+        for i in range(neighbors):
             s_neighbor = list(s_base)
             a = random.randint(0, len(s) - 1)
             b = random.randint(0, len(s) - 1)
             s_neighbor[a], s_neighbor[b] = s_neighbor[b], s_neighbor[a]
             f_neighbor = object_f(s_neighbor)
+            t = iterations / 1 + 0.8 * i
+            diff = f_best_neighbor - f_neighbor
+            Pt = (-diff / t)
+            print(Pt)
             if calculate_d(s_neighbor,a,b) and f_neighbor < f_best_neighbor:
                 f_best_neighbor = f_neighbor
                 s_best_neighbor = s_neighbor
@@ -154,9 +158,7 @@ def main():
     
     # for i in range(16):
     #     i_order[i] = i + 1
-    print(demands)
-    print(sum(demands))
-    print(sum(demands) / 4)
+    
     
     print(i_order)
 
