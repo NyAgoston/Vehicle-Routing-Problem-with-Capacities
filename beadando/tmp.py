@@ -31,3 +31,16 @@ demands = [0, 1, 1, 2, 4, 2, 4, 8, 8, 1, 2, 1, 2, 4, 4, 8, 8]
             (684, 560), # location 14
             (0, 640),   # location 15
             (798, 640)] # location 16
+def calculateDemand(s,demands,capacities,vehicles):
+    order = makeArray(s,vehicles)
+    
+    cols = ((len(s)) / vehicles) + 2
+    for i in range(vehicles):
+        if a in order[i] or b in order[i]:
+            demand = 0
+            for j in range(int(cols)):
+                demand += demands[order[i][j]]
+            if demand > capacities:
+                return False
+
+    return True

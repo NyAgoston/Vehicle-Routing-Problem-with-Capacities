@@ -59,18 +59,27 @@ def neighborhood_search(s, object_f, iterations, neighbors,calculate_d):
             b = random.randint(0, len(s) - 1)
             s_neighbor[a], s_neighbor[b] = s_neighbor[b], s_neighbor[a]
             f_neighbor = object_f(s_neighbor)
-            t = iterations / 1 + 0.8 * i
-            diff = f_best_neighbor - f_neighbor
-            Pt = (-diff / t)
-            print(Pt)
+            
+                                    
             if calculate_d(s_neighbor,a,b) and f_neighbor < f_best_neighbor:
                 f_best_neighbor = f_neighbor
                 s_best_neighbor = s_neighbor
+
+                
         s_base = s_best_neighbor
         f_base = f_best_neighbor
+        t = iterations / 1 + 0.8 * _
+        
         if f_base < f_best:
             f_best = f_base
-            s_best = s_base
+            s_best = s_base   
+        else:
+            diff = f_best_neighbor - f_neighbor
+            Pt = (-diff / t)
+            if Pt > random.random():
+                f_best = f_base
+                s_best = s_base 
+
     return s_best
 def closest_Order(order,tsp_dict,vehicles):
     prev = 0
@@ -150,19 +159,27 @@ def main():
 
     object_f = lambda sched: object_function(vrp_dict, sched,vehicles)
 
-    calculate_d = lambda sched,a,b: calculateDemand(sched,b,a,demands,vehicle_capacities,vehicles)
+    calculate_d = lambda sched,a,b: calculateDemand(sched,a,b,demands,vehicle_capacities,vehicles)
 
     order = [0] * (len(cities) -1)
 
-    i_order = closest_Order(order,vrp_dict,vehicles)
-    
-    # for i in range(16):
-    #     i_order[i] = i + 1
-    
-    
-    print(i_order)
+    # i_order = closest_Order(order,vrp_dict,vehicles)
 
-    il_order = neighborhood_search(i_order,object_f,100,100,calculate_d)
+    # print(i_order)
+    
+    # for i in range(len(cities) - 1):
+    #     i_order[i] = i + 1
+
+    # print(i_order)
+    for i in range(len(cities) - 1):
+        run = True
+        while(run):
+            num = random.randint(1,len(cities) - 1)
+            if num not in order:
+                run = False
+        order[i] = num
+
+    il_order = neighborhood_search(order,object_f,2000,100,calculate_d)
 
     printRoutes(il_order,vehicles,object_f,demands,vrp_dict,cities)
 
