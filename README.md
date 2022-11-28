@@ -5,5 +5,5 @@ kapacitásigényük.
 ## Megoldás
 * elso
 * masodik
-![alt text](https://https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/1-10.png)
+* ![image](https://https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/1-10.png)
 
