@@ -34,7 +34,11 @@ CVRP is based on Vehicle Routing Problem with a limitaton, every vehicle has a c
     - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/10-50r.png)
 * 20 vehicle 200 city
     - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/20-200.png)
-    - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/20-200r.png)
 ## Sources
 * https://ai.leventefazekas.hu/lessons/2022-10-11-travelling-salesman/
+* https://ai.leventefazekas.hu/lessons/2022-10-16-simulated-annealing/
+## Simulated Annealing
+* For the base program i'am using the linear multiplicative cooling strategy
+* I compared it with the Logarithmical multiplicative strategy
 ## Conclusion
+The more cities and vehicles we are working with the harder it is to fulfill the demand limitation. The problem comes because the demands are auto generated therefor not every solution will be good.

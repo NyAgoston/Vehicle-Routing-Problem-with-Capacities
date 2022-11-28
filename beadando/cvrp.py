@@ -1,4 +1,6 @@
 import random
+import math
+import matplotlib.pyplot as plt
 
 def distance(c1, c2): # Return distance between 2 cities
     return abs(c1[0] - c2[0]) + abs(c1[1] - c2[1])
@@ -62,8 +64,10 @@ def neighborhood_search(s, object_f, iterations, neighbors,calculate_d):
             s_base = s_best_neighbor
             f_base = f_best_neighbor
 
-            t = iterations / 1 + 0.8 * _ # simulated annelling
-                                    
+            t = iterations / (1 + 0.8 * _) # simulated annelling
+
+            #t = iterations / (1 + 0.8 * math.log(1) + _)
+            plt.plot(t,_)                     
             if calculate_d(s_neighbor,s_neighbor[a],s_neighbor[b]) and f_neighbor < f_best_neighbor: # if changed order demand is true, and distance is less, switch the orders
                 f_best_neighbor = f_neighbor
                 s_best_neighbor = s_neighbor
@@ -76,6 +80,7 @@ def neighborhood_search(s, object_f, iterations, neighbors,calculate_d):
         if f_base < f_best:
             f_best = f_base
             s_best = s_base   
+    plt.show()
     return s_best
 def closest_Order(order,tsp_dict,vehicles): # creates an order where every cities neighbour is the closest to itself
     prev = 0
