@@ -16,8 +16,25 @@ CVRP is based on Vehicle Routing Problem with a limitaton, every vehicle has a c
     * Inside the if statement the demands are checked, we pass the order and the two generated indexes to a function, it creates an n dimensional array, and if the sub arrays demands that contains the 2 indexes are over the capaciti ten it returns false
     * Simulated annealing is used here, if the random number is less than the Pt than we accept the less optimal solution
 * The final optimal order is plotted using matplotlib
-## Example
+## Examples
 * 1 vehicle 10 city (TSP)
     - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/1-10.png)
     - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/1-10r.png)
-
+* 2 vehicle 10 city
+    - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/2-10.png)
+    - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/2-10r.png)
+* 4 vehicle 20 city
+    - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/4-20.png)
+    - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/4-20r.png)
+* 5 vehicle 20 city
+    - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/5-20.png)
+    - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/5-20r.png)
+* 10 vehicle 50 city
+    - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/10-50.png)
+    - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/10-50r.png)
+* 20 vehicle 200 city
+    - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/20-200.png)
+    - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/20-200r.png)
+## Sources
+* https://ai.leventefazekas.hu/lessons/2022-10-11-travelling-salesman/
+## Conclusion
