@@ -15,9 +15,9 @@ CVRP is based on Vehicle Routing Problem with a limitaton, every vehicle has a c
 * Inside neighborhood_search random indexes are switched and if the orders lenght after the switching is less than the current orders, then we keep the changes.
     * Inside the if statement the demands are checked, we pass the order and the two generated indexes to a function, it creates an n dimensional array, and if the sub arrays demands that contains the 2 indexes are over the capaciti ten it returns false
     * Simulated annealing is used here, if the random number is less than the Pt than we accept the less optimal solution
-* The final order is plotted using matplotlib
+* The final optimal order is plotted using matplotlib
 ## Example
 * 1 vehicle 10 city (TSP)
-![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/1-10.png)
-![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/1-10r.png)
+    ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/1-10.png)
+    ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/1-10r.png)
 
