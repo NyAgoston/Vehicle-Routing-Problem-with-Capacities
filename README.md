@@ -18,6 +18,6 @@ CVRP is based on Vehicle Routing Problem with a limitaton, every vehicle has a c
 * The final optimal order is plotted using matplotlib
 ## Example
 * 1 vehicle 10 city (TSP)
-    ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/1-10.png)
-    ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/1-10r.png)
+    - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/1-10.png)
+    - ![image](https://github.com/NyAgoston/Vehicle-Routing-Problem-with-Capacities/blob/main/img/1-10r.png)
 
